@@ -2,8 +2,10 @@
 
 namespace EmailService
 {
-    public class EmailRequestMessage
+    public class EmailRequestedMessage
     {
+        public string CorrelationId { get; set; }
+        public string AppId { get; set; }
         public string To { get; set; }
         public string From { get; set; }
         public string Subject { get; set; }
