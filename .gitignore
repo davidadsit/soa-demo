@@ -1,0 +1,15 @@
+*.suo
+*.user
+*.ReSharper
+_ReSharper*
+*.dotCover
+*.orig
+bin/
+obj/
+Debug/
+Release/
+ClientBin/
+testResults/
+specfailures*
+packages/
+*.log
