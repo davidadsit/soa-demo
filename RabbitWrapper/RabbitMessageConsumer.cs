@@ -56,14 +56,7 @@ namespace RabbitWrapper
                     }
                     var message = Message.CreateInstance(messageType, messageBody);
                     message.SetProperties(properties);
-                    try
-                    {
-                        message.Body.CorrelationId = properties.CorrelationId;
-                        message.Body.AppId = properties.AppId;
-                    }
-                    catch (Exception)
-                    {
-                    }
+                    
                     return handler(message, messageReceivedInfo);
                 },
                 configure);

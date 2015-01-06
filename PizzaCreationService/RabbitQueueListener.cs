@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using log4net;
 using RabbitWrapper;
 
@@ -7,12 +8,14 @@ namespace PizzaCreationService
     public class RabbitQueueListener
     {
         static ILog logger = LogManager.GetLogger("RabbitQueueListener");
-        public static readonly ExchangeName PizzaRequestExchangeName = new ExchangeName("pizzarequested", 1);
+        static readonly ExchangeName PizzaRequestExchangeName = new ExchangeName("pizzarequested", 1);
+        static readonly ExchangeName CouponIssuedExchangeName = new ExchangeName("couponissued", 1);
 
         readonly IRabbitMessageConsumer messageConsumer;
         readonly IQueueFactory queueFactory;
         readonly IRabbitMessagePublisher rabbitMessagePublisher;
         IDisposable emailRequestMessageDisposable;
+        static readonly HashSet<string> issuedCoupons = new HashSet<string>();
 
         public RabbitQueueListener(IRabbitMessageConsumer messageConsumer,
             IQueueFactory queueFactory,
@@ -56,11 +59,27 @@ namespace PizzaCreationService
                 return;                                
             }
 
-            logger.InfoFormat("Pizza Baked!{0}For: {1}{0}Living at: {2}{0}With toppings: {3}{0}",
+            bool hasValidCouponCode = issuedCoupons.Contains(BuildCouponHash(message.CorrelationId, message.Address, message.Coupon));
+
+            logger.InfoFormat("Pizza Baked!{0}For: {1}{0}Living at: {2}{0}With toppings: {3}{0}Cost: {4}{0}",
                 Environment.NewLine,
                 message.Name,
                 message.Address,
-                string.Join(", ", message.Toppings));
+                string.Join(", ", message.Toppings),
+                hasValidCouponCode ? "FREE!!!!" : "$" + (10 + message.Toppings.Length));
+
+            if (!hasValidCouponCode)
+            {
+                string couponCode = Guid.NewGuid().ToString("D");
+                string couponHash = BuildCouponHash(message.CorrelationId, message.Address, couponCode);
+                issuedCoupons.Add(couponHash);
+                rabbitMessagePublisher.Publish(CouponIssuedExchangeName, new CouponIssuedMessage {CorrelationId = message.CorrelationId, Coupon = couponCode});
+            }
+        }
+
+        static string BuildCouponHash(string correlationId, string address, string couponCode)
+        {
+            return correlationId + address + couponCode;
         }
     }
 }
