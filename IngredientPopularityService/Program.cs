@@ -5,7 +5,7 @@ using log4net;
 using log4net.Config;
 using RabbitWrapper;
 
-namespace EmailService
+namespace IngredientPopularityService
 {
     class Program
     {

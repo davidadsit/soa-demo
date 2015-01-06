@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "EmailService\EmailService.csproj", "{570874D4-CB0E-426B-8EB9-EB3856492840}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitWrapper", "RabbitWrapper\RabbitWrapper.csproj", "{59142DFE-1FE5-40B1-A24C-B974ED056A30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaCreationService", "PizzaCreationService\PizzaCreationService.csproj", "{570874D4-CB0E-426B-8EB9-EB3856492840}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IngredientPopularityService", "IngredientPopularityService\IngredientPopularityService.csproj", "{13C633BD-2BF0-49DD-89CC-EEEA9AA396C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{570874D4-CB0E-426B-8EB9-EB3856492840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{570874D4-CB0E-426B-8EB9-EB3856492840}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{570874D4-CB0E-426B-8EB9-EB3856492840}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{570874D4-CB0E-426B-8EB9-EB3856492840}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59142DFE-1FE5-40B1-A24C-B974ED056A30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{59142DFE-1FE5-40B1-A24C-B974ED056A30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59142DFE-1FE5-40B1-A24C-B974ED056A30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59142DFE-1FE5-40B1-A24C-B974ED056A30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{570874D4-CB0E-426B-8EB9-EB3856492840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{570874D4-CB0E-426B-8EB9-EB3856492840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{570874D4-CB0E-426B-8EB9-EB3856492840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{570874D4-CB0E-426B-8EB9-EB3856492840}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13C633BD-2BF0-49DD-89CC-EEEA9AA396C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13C633BD-2BF0-49DD-89CC-EEEA9AA396C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13C633BD-2BF0-49DD-89CC-EEEA9AA396C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13C633BD-2BF0-49DD-89CC-EEEA9AA396C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
