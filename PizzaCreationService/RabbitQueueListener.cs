@@ -59,7 +59,7 @@ namespace PizzaCreationService
                 return;                                
             }
 
-            bool hasValidCouponCode = issuedCoupons.Contains(BuildCouponHash(message.CorrelationId, message.Address, message.Coupon));
+            bool hasValidCouponCode = issuedCoupons.Contains(BuildCouponHash(message.Address, message.Coupon));
 
             logger.InfoFormat("Pizza Baked!{0}For: {1}{0}Living at: {2}{0}With toppings: {3}{0}Cost: {4}{0}",
                 Environment.NewLine,
@@ -68,18 +68,22 @@ namespace PizzaCreationService
                 string.Join(", ", message.Toppings),
                 hasValidCouponCode ? "FREE!!!!" : "$" + (10 + message.Toppings.Length));
 
-            if (!hasValidCouponCode)
+            if (hasValidCouponCode)
+            {
+                issuedCoupons.Remove(BuildCouponHash(message.Address, message.Coupon));
+            }
+            else
             {
                 string couponCode = Guid.NewGuid().ToString("D");
-                string couponHash = BuildCouponHash(message.CorrelationId, message.Address, couponCode);
+                string couponHash = BuildCouponHash(message.Address, couponCode);
                 issuedCoupons.Add(couponHash);
                 rabbitMessagePublisher.Publish(CouponIssuedExchangeName, new CouponIssuedMessage {CorrelationId = message.CorrelationId, Coupon = couponCode});
             }
         }
 
-        static string BuildCouponHash(string correlationId, string address, string couponCode)
+        static string BuildCouponHash(string address, string couponCode)
         {
-            return correlationId + address + couponCode;
+            return address + couponCode;
         }
     }
 }
