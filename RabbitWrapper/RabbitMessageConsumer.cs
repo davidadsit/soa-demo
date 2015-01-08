@@ -50,7 +50,7 @@ namespace RabbitWrapper
                     var messageBody = messageSerializer.Deserialize<T>(Encoding.UTF8.GetString(body));
                     if (messageBody==null)
                     {
-                        logger.Error("Someone published a malformed EmailRequested message");
+                        logger.Error("Someone published a malformed pizza requested message");
                         logger.Error("");
                         return null;
                     }

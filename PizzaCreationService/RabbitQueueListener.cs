@@ -14,7 +14,7 @@ namespace PizzaCreationService
         readonly IRabbitMessageConsumer messageConsumer;
         readonly IQueueFactory queueFactory;
         readonly IRabbitMessagePublisher rabbitMessagePublisher;
-        IDisposable emailRequestMessageDisposable;
+        IDisposable pizzaRequestedMessageDisposable;
         static readonly HashSet<string> issuedCoupons = new HashSet<string>();
 
         public RabbitQueueListener(IRabbitMessageConsumer messageConsumer,
@@ -31,12 +31,12 @@ namespace PizzaCreationService
             logger.Info("Started listening for PizzaRequested messages");
             logger.Info("---------------------------------------------");
             logger.Info("");
-            emailRequestMessageDisposable = messageConsumer.Subscribe<PizzaRequestedMessage>(queueFactory.Create(PizzaRequestExchangeName, "kitchen", "chef1"), MandrillHandler);
+            pizzaRequestedMessageDisposable = messageConsumer.Subscribe<PizzaRequestedMessage>(queueFactory.Create(PizzaRequestExchangeName, "kitchen", "chef1"), MandrillHandler);
         }
 
         public void Stop()
         {
-            emailRequestMessageDisposable.Dispose();
+            pizzaRequestedMessageDisposable.Dispose();
         }
 
         public void MandrillHandler(PizzaRequestedMessage message)

@@ -16,7 +16,7 @@ namespace IngredientPopularityService
         readonly IRabbitMessageConsumer messageConsumer;
         readonly IQueueFactory queueFactory;
         readonly IRabbitMessagePublisher rabbitMessagePublisher;
-        IDisposable emailRequestMessageDisposable;
+        IDisposable pizzaRequestedMessageDisposable;
 
         public RabbitQueueListener(IRabbitMessageConsumer messageConsumer,
             IQueueFactory queueFactory,
@@ -30,7 +30,7 @@ namespace IngredientPopularityService
         public void Start()
         {
             PrintAnalysis();
-            emailRequestMessageDisposable = messageConsumer.Subscribe<PizzaRequestedMessage>(queueFactory.Create(PizzaRequestExchangeName, "marketing", "ingredientanalyst1"), MandrillHandler);
+            pizzaRequestedMessageDisposable = messageConsumer.Subscribe<PizzaRequestedMessage>(queueFactory.Create(PizzaRequestExchangeName, "marketing", "ingredientanalyst1"), MandrillHandler);
         }
 
         static void PrintAnalysis()
@@ -49,7 +49,7 @@ namespace IngredientPopularityService
 
         public void Stop()
         {
-            emailRequestMessageDisposable.Dispose();
+            pizzaRequestedMessageDisposable.Dispose();
         }
 
         public void MandrillHandler(PizzaRequestedMessage message)
