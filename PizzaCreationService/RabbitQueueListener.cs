@@ -28,7 +28,7 @@ namespace PizzaCreationService
 
         public void Start()
         {
-            logger.Info("Started listening for PizzaRequested messages");
+            logger.Info("Waiting to bake pizzas");
             logger.Info("---------------------------------------------");
             logger.Info("");
             pizzaRequestedMessageDisposable = messageConsumer.Subscribe<PizzaRequestedMessage>(queueFactory.Create(PizzaRequestExchangeName, "kitchen", "chef1"), MandrillHandler);
@@ -77,7 +77,7 @@ namespace PizzaCreationService
                 string couponCode = Guid.NewGuid().ToString("D");
                 string couponHash = BuildCouponHash(message.Address, couponCode);
                 issuedCoupons.Add(couponHash);
-                rabbitMessagePublisher.Publish(CouponIssuedExchangeName, new CouponIssuedMessage {CorrelationId = message.CorrelationId, Coupon = couponCode});
+                rabbitMessagePublisher.Publish(CouponIssuedExchangeName, new CouponIssuedMessage {CorrelationId = message.OrderId, Coupon = couponCode});
             }
         }
 
