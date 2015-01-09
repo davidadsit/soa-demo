@@ -1,4 +1,5 @@
-# soa-demo
+# SOA 2.0
+## Temporally Decoupled Systems
 
 This is the technical demo for a code presentation that can be found here: http://tinyurl.com/utsc-soa
 
