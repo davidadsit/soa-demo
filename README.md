@@ -1,7 +1,7 @@
 # SOA 2.0
 ## Temporally Decoupled Systems
 
-This is the technical demo for a code presentation that can be found here: http://tinyurl.com/utsc-soa
+This is the technical demo for a presentation that can be found here: http://tinyurl.com/utsc-soa
 
 For further information on distributed computing, try the following:
 * ["A note on distributed computing"](http://tinyurl.com/note-distributed-computing)
