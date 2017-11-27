@@ -22,13 +22,16 @@ namespace IngredientPopularityService
                 var rabbitQueueListener = Initialize();
 
                 var messageListener = Task.Run(() => rabbitQueueListener.Start());
-//                Task.WaitAll(messageListener, Task.Delay(TimeSpan.FromMinutes(1)));
+                Task.WaitAll(messageListener, Task.Delay(TimeSpan.FromMinutes(1)));
 
-//                rabbitQueueListener.Stop();
+                rabbitQueueListener.Stop();
             }
             catch (Exception x)
             {
                 Console.WriteLine(x);
+                Console.Out.WriteLine("");
+                Console.Out.WriteLine("[Enter] to exit");
+                Console.In.ReadLine();
             }
         }
 
@@ -36,6 +39,10 @@ namespace IngredientPopularityService
         {
             var settings = new Settings();
             var advancedBus = new EasyNetBusFactory(settings).CreateAdvancedBus();
+            if (!advancedBus.IsConnected)
+            {
+                throw new Exception("not connected to rabbit");
+            }
             var rabbitMessageConsumer = new RabbitMessageConsumer(advancedBus, new MessageSerializer(), new HandlerCollectionFactory(new EasyNetBusFactory.Log4NetLogger()));
             var rabbitMessagePublisher = new RabbitMessagePublisher(advancedBus, new MessageSerializer(), settings);
             var queueFactory = new QueueFactory(advancedBus);

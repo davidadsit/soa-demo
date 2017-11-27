@@ -45,8 +45,8 @@ namespace PizzaCreationService
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs exceptionArgs)
         {
-            if (exceptionArgs == null || exceptionArgs.ExceptionObject == null) return;
-            if (null != logger) logger.ErrorFormat("Caught unhandled exception: {0}", exceptionArgs.ExceptionObject);
+            if (exceptionArgs?.ExceptionObject == null) return;
+            logger?.ErrorFormat("Caught unhandled exception: {0}", exceptionArgs.ExceptionObject);
         }
     }
 }

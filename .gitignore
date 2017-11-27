@@ -4,6 +4,7 @@
 _ReSharper*
 *.dotCover
 *.orig
+.vs/
 bin/
 obj/
 Debug/

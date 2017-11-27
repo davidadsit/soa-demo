@@ -16,8 +16,7 @@ namespace RabbitWrapper
         IBus CreateSimpleBus()
         {
             var logger = new Log4NetLogger();
-            string connectionString = string.Format("host={0};username={1};password={2}", queueingSettings.RabbitHosts,
-                queueingSettings.RabbitUserName, queueingSettings.RabbitPassword);
+            string connectionString = $"host={queueingSettings.RabbitHosts};username={queueingSettings.RabbitUserName};password={queueingSettings.RabbitPassword}";
             return RabbitHutch.CreateBus(connectionString, serviceRegister => serviceRegister.Register<IEasyNetQLogger>(_ => logger));
         }
 
